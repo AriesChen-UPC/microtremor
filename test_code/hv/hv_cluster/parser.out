@@ -1,0 +1,113 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> stmt_bracket
+Rule 1     stmt_bracket -> WORD [ stmt_bracket_inside ]
+Rule 2     stmt_bracket_inside -> WORD - WORD
+Rule 3     stmt_bracket_inside -> NUMBER - NUMBER
+
+Terminals, with rules where they appear
+
+-                    : 2 3
+NUMBER               : 3 3
+WORD                 : 1 2 2
+[                    : 1
+]                    : 1
+error                : 
+
+Nonterminals, with rules where they appear
+
+stmt_bracket         : 0
+stmt_bracket_inside  : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . stmt_bracket
+    (1) stmt_bracket -> . WORD [ stmt_bracket_inside ]
+
+    WORD            shift and go to state 2
+
+    stmt_bracket                   shift and go to state 1
+
+state 1
+
+    (0) S' -> stmt_bracket .
+
+
+
+state 2
+
+    (1) stmt_bracket -> WORD . [ stmt_bracket_inside ]
+
+    [               shift and go to state 3
+
+
+state 3
+
+    (1) stmt_bracket -> WORD [ . stmt_bracket_inside ]
+    (2) stmt_bracket_inside -> . WORD - WORD
+    (3) stmt_bracket_inside -> . NUMBER - NUMBER
+
+    WORD            shift and go to state 4
+    NUMBER          shift and go to state 6
+
+    stmt_bracket_inside            shift and go to state 5
+
+state 4
+
+    (2) stmt_bracket_inside -> WORD . - WORD
+
+    -               shift and go to state 7
+
+
+state 5
+
+    (1) stmt_bracket -> WORD [ stmt_bracket_inside . ]
+
+    ]               shift and go to state 8
+
+
+state 6
+
+    (3) stmt_bracket_inside -> NUMBER . - NUMBER
+
+    -               shift and go to state 9
+
+
+state 7
+
+    (2) stmt_bracket_inside -> WORD - . WORD
+
+    WORD            shift and go to state 10
+
+
+state 8
+
+    (1) stmt_bracket -> WORD [ stmt_bracket_inside ] .
+
+    $end            reduce using rule 1 (stmt_bracket -> WORD [ stmt_bracket_inside ] .)
+
+
+state 9
+
+    (3) stmt_bracket_inside -> NUMBER - . NUMBER
+
+    NUMBER          shift and go to state 11
+
+
+state 10
+
+    (2) stmt_bracket_inside -> WORD - WORD .
+
+    ]               reduce using rule 2 (stmt_bracket_inside -> WORD - WORD .)
+
+
+state 11
+
+    (3) stmt_bracket_inside -> NUMBER - NUMBER .
+
+    ]               reduce using rule 3 (stmt_bracket_inside -> NUMBER - NUMBER .)
+

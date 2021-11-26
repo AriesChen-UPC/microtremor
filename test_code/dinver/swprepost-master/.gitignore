@@ -1,0 +1,26 @@
+# Folders
+__pycache__
+.ipynb_checkpoints
+.tox
+dist
+build
+doc
+scratch
+html
+test/htmlcov
+examples/adv/0_targets
+examples/adv/1_parameters
+
+# File Types
+*.coverage
+*.xlsx
+*.docx
+*.pptx
+*.vscode
+*.xml
+*.egg-info
+*.png
+*.hypothesis
+*.tmp_profiler_run
+examples/basic/to_*
+reformat.py
