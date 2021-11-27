@@ -1,6 +1,6 @@
 # encoding: UTF-8
 """
-@author: LijiongChen
+@author: Aries Chen
 @contact: s15010125@s.upc.edu.cn
 @time: 05/11/2021
 @update:06/11/2021
