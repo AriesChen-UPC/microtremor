@@ -23,6 +23,7 @@ import time
 from tqdm import trange
 
 # Load HV
+print('Start of the program spac clusters :)')
 root = tk.Tk()
 root.withdraw()
 Folderpath = filedialog.askdirectory()

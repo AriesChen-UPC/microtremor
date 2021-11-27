@@ -29,6 +29,7 @@ import matplotlib.pyplot as plt
 from scipy.special import *
 
 # choose the path
+print('Start of the program spac clusters :)')
 root = tk.Tk()
 root.withdraw()
 Folderpath = filedialog.askdirectory()
