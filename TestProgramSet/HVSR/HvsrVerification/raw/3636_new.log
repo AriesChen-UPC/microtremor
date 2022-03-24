@@ -1,0 +1,172 @@
+### Parameters ###
+SIGNAL FILE NAME = ### temporary signal ###
+FROM TIME TYPE = 1
+FROM TIME TEXT = 2h36m36.2100s
+TO TIME TYPE = 1
+TO TIME TEXT = 3h14m2.7100s
+USE FIRST PICK ONLY = n
+WINDOW MIN LENGTH (s) = 25
+WINDOW MAX LENGTH (s) = 50
+WINDOW LENGTH TYPE (at least/exactly/freq. dep.) = exactly
+DO BAD SAMPLE TOLERANCE (y/n) = n
+BAD SAMPLE TOLERANCE (s) = 0
+DO WINDOW OVERLAP (y/n) = n
+WINDOW OVERLAP (%) = 2
+DO BAD SAMPLE THRESHOLD (y/n) = n
+BAD SAMPLE THRESHOLD (%) = 95
+ANTI-TRIGGERING ON RAW SIGNAL (y/n) = n
+USED RAW COMPONENTS = y, y, y, n, y
+RAW STA (s) = 1
+RAW LTA (s) = 30
+RAW MIN SLTA = 0.2
+RAW MAX SLTA = 2
+ANTI-TRIGGERING ON FILTERED SIGNAL (y/n) = y
+FILTER TYPE (low pass/high pass/band pass/band reject) = band pass
+FILTER METHOD (butterworth/taper) = butterworth
+FILTER MIN FREQUENCY (Hz) = 0.1
+FILTER MAX FREQUENCY (Hz) = 10
+FILTER CAUSAL (y/n) = n
+FILTER ORDER = 1
+FILTER WIDTH = 0.5
+USED FILTERED COMPONENTS = y, y, y, n, y
+FILTERED STA (s) = 1
+FILTERED LTA (s) = 30
+FILTERED MIN SLTA = 0.2
+FILTERED MAX SLTA = 2.5
+SMOOTHING TYPE (konno & ohmachi/constant band/proportional/no smoothing) = konno & ohmachi
+SMOOTHING CONSTANT = 40.00
+DO COSINE TAPER = true
+TAPER WIDTH = 5
+DO HIGH PASS = false
+HIGH PASS FREQUENCY = 1
+MINIMUM FREQUENCY = 0.1
+MAXIMUM FREQUENCY = 10
+INVERSED FREQUENCY = n
+SAMPLES NUMBER FREQUENCY = 1024
+SAMPLING TYPE FREQUENCY (0=log, 1=linear)= 0
+HORIZONTAL COMPONENTS = Squared
+HORIZONTAL AZIMUTH = 0
+### End Parameters ###
+### Windowing Log ###
+Automatic windowing
+Adding window from 9439.73 to 9464.73 s.
+Adding window from 9464.74 to 9489.74 s.
+Adding window from 9502.98 to 9527.98 s.
+Adding window from 9527.99 to 9552.99 s.
+Adding window from 9553 to 9578 s.
+Adding window from 9578.01 to 9603.01 s.
+Adding window from 9603.02 to 9628.02 s.
+Adding window from 9628.03 to 9653.03 s.
+Adding window from 9653.04 to 9678.04 s.
+Adding window from 9678.05 to 9703.05 s.
+Adding window from 9721.28 to 9746.28 s.
+Adding window from 9746.29 to 9771.29 s.
+Adding window from 9834.31 to 9859.31 s.
+Adding window from 9859.32 to 9884.32 s.
+Adding window from 9884.33 to 9909.33 s.
+Adding window from 9909.34 to 9934.34 s.
+Adding window from 9934.35 to 9959.35 s.
+Adding window from 9959.36 to 9984.36 s.
+Adding window from 9984.37 to 10009.4 s.
+Adding window from 10009.4 to 10034.4 s.
+Adding window from 10034.4 to 10059.4 s.
+Adding window from 10064.5 to 10089.5 s.
+Adding window from 10089.5 to 10114.5 s.
+Adding window from 10135.6 to 10160.6 s.
+Adding window from 10160.6 to 10185.6 s.
+Adding window from 10205.3 to 10230.3 s.
+Adding window from 10250.5 to 10275.5 s.
+Adding window from 10319.8 to 10344.8 s.
+Adding window from 10344.8 to 10369.8 s.
+Adding window from 10369.9 to 10394.9 s.
+Adding window from 10394.9 to 10419.9 s.
+Adding window from 10471.5 to 10496.5 s.
+Adding window from 10496.5 to 10521.5 s.
+Adding window from 10521.5 to 10546.5 s.
+Adding window from 10579.2 to 10604.2 s.
+Adding window from 10604.2 to 10629.2 s.
+Adding window from 10629.2 to 10654.2 s.
+Adding window from 10667.5 to 10692.5 s.
+Adding window from 10712.7 to 10737.7 s.
+Adding window from 10750.3 to 10775.3 s.
+Adding window from 10775.3 to 10800.3 s.
+Adding window from 10811.4 to 10836.4 s.
+Adding window from 10836.4 to 10861.4 s.
+Adding window from 10939.4 to 10964.4 s.
+Adding window from 10996.9 to 11021.9 s.
+Adding window from 11033 to 11058 s.
+Adding window from 11058 to 11083 s.
+Adding window from 11092.7 to 11117.7 s.
+Adding window from 11133.4 to 11158.4 s.
+Adding window from 11174 to 11199 s.
+Adding window from 11224 to 11249 s.
+Adding window from 11263.8 to 11288.8 s.
+Adding window from 11320.7 to 11345.7 s.
+Adding window from 11356.6 to 11381.6 s.
+Adding window from 11381.6 to 11406.6 s.
+Adding window from 11414 to 11439 s.
+Adding window from 11439 to 11464 s.
+Adding window from 11479 to 11504 s.
+### End Windowing Log ###
+### Time Windows ###
+# Number= 58
+# Start time 	 End Time 	 Window length
+9439.73	9464.73	25
+9464.74	9489.74	25
+9502.98	9527.98	25
+9527.99	9552.99	25
+9553	9578	25
+9578.01	9603.01	25
+9603.02	9628.02	25
+9628.03	9653.03	25
+9653.04	9678.04	25
+9678.05	9703.05	25
+9721.28	9746.28	25
+9746.29	9771.29	25
+9834.31	9859.31	25
+9859.32	9884.32	25
+9884.33	9909.33	25
+9909.34	9934.34	25
+9934.35	9959.35	25
+9959.36	9984.36	25
+9984.37	10009.4	25
+10009.4	10034.4	25
+10034.4	10059.4	25
+10064.5	10089.5	25
+10089.5	10114.5	25
+10135.6	10160.6	25
+10160.6	10185.6	25
+10205.3	10230.3	25
+10250.5	10275.5	25
+10319.8	10344.8	25
+10344.8	10369.8	25
+10369.9	10394.9	25
+10394.9	10419.9	25
+10471.5	10496.5	25
+10496.5	10521.5	25
+10521.5	10546.5	25
+10579.2	10604.2	25
+10604.2	10629.2	25
+10629.2	10654.2	25
+10667.5	10692.5	25
+10712.7	10737.7	25
+10750.3	10775.3	25
+10775.3	10800.3	25
+10811.4	10836.4	25
+10836.4	10861.4	25
+10939.4	10964.4	25
+10996.9	11021.9	25
+11033	11058	25
+11058	11083	25
+11092.7	11117.7	25
+11133.4	11158.4	25
+11174	11199	25
+11224	11249	25
+11263.8	11288.8	25
+11320.7	11345.7	25
+11356.6	11381.6	25
+11381.6	11406.6	25
+11414	11439	25
+11439	11464	25
+11479	11504	25
+### End Time Windows ###
