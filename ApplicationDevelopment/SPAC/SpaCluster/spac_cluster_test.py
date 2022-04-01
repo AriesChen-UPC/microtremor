@@ -3,7 +3,7 @@
 @author: Aries Chen
 @contact: s15010125@s.upc.edu.cn
 @time: 05/11/2021
-@update:03/19/2022
+@update:03/26/2022
 @file: spac_cluster.py
        This code is designead to sort the SPAC using keans and plot the result with plotly.
 """
@@ -479,7 +479,12 @@ def spac_cluster():
     if nameHtml == 'Y':
         rename_html_name = input('Please input the name of the .html file: \n')
         rename_html_name = Folderpath + '/' + rename_html_name + '.html'
-        os.rename(default_html_name, rename_html_name)
+        if os.path.exists(rename_html_name):
+            print('\033[0;31mThe file already exists, The original file will be overwritten!\033[0m')
+            os.remove(rename_html_name)
+            os.rename(default_html_name, rename_html_name)
+        else:
+            os.rename(default_html_name, rename_html_name)
     else:
         rename_html_name = default_html_name
     print('\033[0;32m------------------------Done!------------------------\033[0m')
