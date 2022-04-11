@@ -131,7 +131,7 @@ fig
 # return the same lag classes for the same distance matrix.
 
 # apply binning
-bins, _ = skg.binning.kmeans(V.distance, N, None)
+bins, _ = skg.binning.clustering(V.distance, N, None)
 
 # get the histogram
 count, _ = np.histogram(V.distance, bins=bins)

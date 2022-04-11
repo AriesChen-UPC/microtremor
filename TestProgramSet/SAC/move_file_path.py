@@ -183,7 +183,7 @@ is_E6_exist = 0
 #%%
 for i in range(len(file_name)):
     # group A
-    if os.path.basename(file_name[i])[0:9] == "590000037":
+    if os.path.basename(file_name[i])[0:9] == "590001076":  # fixme: A1 is changed. Original is 590000037
         shutil.move(file_name[i], A1_sac_data_path)
         is_A1_exist = is_A1_exist + 1
     if os.path.basename(file_name[i])[0:9] == "590000050":

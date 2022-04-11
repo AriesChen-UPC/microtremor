@@ -79,3 +79,4 @@ for i in range(len(hvsr_file_path)):
     plotly.offline.plot(fig, filename=hvsr_file_path[i] + '/' + html_file_Name)
     print('\033[0;36mThe HVSR curves of %s have been plotted and saved.\033[0m' % hvsr_file_path[i].split("/")[-2])
 print('\033[0;32m------------------------Done!------------------------\033[0m')
+input('Press Enter to exit … \n')
