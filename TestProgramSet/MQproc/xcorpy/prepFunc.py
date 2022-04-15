@@ -318,7 +318,7 @@ def prep_project(data_path, record, param, channel=None, update=False, geopsy=Fa
                             tmptab['ReceiverX'] = 0.0
                             tmptab['ReceiverY'] = 0.0
                             if 'z' in sub_record.dtype.names:
-                                tmptab['ReceiverZ'] = float(sub_record.z[0])
+                                tmptab['ReceiverZ'] = float(sub_record.vs[0])
                             else:
                                 tmptab['ReceiverZ'] = 0.0
                                 if update:
@@ -331,7 +331,7 @@ def prep_project(data_path, record, param, channel=None, update=False, geopsy=Fa
                             tmptab['ReceiverY'] = np.cos(2 * np.pi * (j - 1) / (n_loop - 1)) \
                                                   * float(sub_record.yradius[0])
                             if 'z' in sub_record.dtype.names:
-                                tmptab['ReceiverZ'] = float(sub_record.z[0])
+                                tmptab['ReceiverZ'] = float(sub_record.vs[0])
                             else:
                                 tmptab['ReceiverZ'] = 0.0
                                 if update:
@@ -342,7 +342,7 @@ def prep_project(data_path, record, param, channel=None, update=False, geopsy=Fa
                         tmptab['ReceiverX'] = float(sub_record.xpoly_n[j])
                         tmptab['ReceiverY'] = float(sub_record.yradius[j])
                         if 'z' in sub_record.dtype.names:
-                            tmptab['ReceiverZ'] = float(sub_record.z[j])
+                            tmptab['ReceiverZ'] = float(sub_record.vs[j])
                         else:
                             tmptab['ReceiverZ'] = 0.0
                             if update:
@@ -357,7 +357,7 @@ def prep_project(data_path, record, param, channel=None, update=False, geopsy=Fa
                             temp_sig[0].stats.sac.user7 = 0.0
                             temp_sig[0].stats.sac.user8 = 0.0
                             if 'z' in sub_record.dtype.names:
-                                temp_sig[0].stats.sac.user9 = float(sub_record.z[0])
+                                temp_sig[0].stats.sac.user9 = float(sub_record.vs[0])
                             else:
                                 temp_sig[0].stats.sac.user9 = 0.0
                                 if update:
@@ -370,7 +370,7 @@ def prep_project(data_path, record, param, channel=None, update=False, geopsy=Fa
                             temp_sig[0].stats.sac.user8 = np.cos(2 * np.pi * (j - 1) / (n_loop - 1)) \
                                                           * float(sub_record.yradius[0])
                             if 'z' in sub_record.dtype.names:
-                                temp_sig[0].stats.sac.user9 = float(sub_record.z[0])
+                                temp_sig[0].stats.sac.user9 = float(sub_record.vs[0])
                             else:
                                 temp_sig[0].stats.sac.user9 = 0.0
                                 if update:
@@ -381,7 +381,7 @@ def prep_project(data_path, record, param, channel=None, update=False, geopsy=Fa
                         temp_sig[0].stats.sac.user7 = float(sub_record.xpoly_n[j])
                         temp_sig[0].stats.sac.user8 = float(sub_record.yradius[j])
                         if 'z' in sub_record.dtype.names:
-                            temp_sig[0].stats.sac.user9 = float(sub_record.z[j])
+                            temp_sig[0].stats.sac.user9 = float(sub_record.vs[j])
                         else:
                             temp_sig[0].stats.sac.user9 = 0.0
                             if update:

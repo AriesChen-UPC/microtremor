@@ -1,6 +1,6 @@
 # encoding: UTF-8
 """
-@author: LijiongChen
+@author: AriesChen
 @contact: s15010125@s.upc.edu.cn
 @time: 4/11/2022 11:12 AM
 @file: theory_spac.py
@@ -14,12 +14,16 @@ import plotly
 import plotly.graph_objects as go
 import plotly.io as pio
 
+
 def theory_spac(folder_path, radius, vs_reference):
     """
-    :param folder_path: the path of the folder where the data is stored
-    :param radius: the radius of the spac data
-    :param vs_reference: the reference velocity
-    :return: freq_theory_spac, theory_spac
+    Args:
+        folder_path: the path of the folder which stores the spac file.
+        radius: the radius of the spac file.
+        vs_reference: the reference velocity of the dispersion curve.
+    Returns:
+        freq_theory_spac: the frequency of the theory spac.
+        spac_theory_spac: the spac of the theory spac.
     """
     r = radius
     freq_theory_spac = np.logspace(np.log10(0.1), np.log10(100), num=400)
@@ -40,5 +44,5 @@ def theory_spac(folder_path, radius, vs_reference):
     fig.update_xaxes(range=[np.log10(1), np.log10(100)])
     fig.update_yaxes(range=[0, 3000], tick0=0.0, dtick=500)
     fig.update_layout(title='vs(nearly 1Hz, depth 57.5m)=' + str(vs_reference) + 'm/s')
-    plotly.offline.plot(fig, filename=folder_path + '/' + 'referenceVs.html')
+    plotly.offline.plot(fig, filename=folder_path + '/' + 'vs_reference.html')
     return freq_theory_spac, spac_theory_spac
