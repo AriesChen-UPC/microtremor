@@ -1,0 +1,1 @@
+POINT	F0(Hz)	Lon(°)	Lat(°)

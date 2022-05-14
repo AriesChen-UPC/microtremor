@@ -1,0 +1,16 @@
+Parameters for NSCORE
+*********************
+
+START OF PARAMETERS:
+./point2d_surf.dat               -  file with data
+3  4 5 6           -  number of variables and columns
+0                         -  column for weight, 0 if none
+0                         -  column for category, 0 if none
+0                         -  number of records if known, 0 if unknown
+-998.0   1.0e21          -  trimming limits
+0                         -transform using a reference distribution, 1=yes
+nofile.out                -file with reference distribution.
+1   2   0                 -  columns for variable, weight, and category
+201                       -maximum number of quantiles, 0 for all
+D:/MyProject/Python/PycharmProjects/DataProcessing/Microtremor/TestProgramSet/GeoStat/Output\nscore.out                -file for output
+D:/MyProject/Python/PycharmProjects/DataProcessing/Microtremor/TestProgramSet/GeoStat/Output\nscore.trn                -file for output transformation table

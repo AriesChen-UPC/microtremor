@@ -45,4 +45,5 @@ def theory_spac(folder_path, radius, vs_reference):
     fig.update_yaxes(range=[0, 3000], tick0=0.0, dtick=500)
     fig.update_layout(title='vs(nearly 1Hz, depth 57.5m)=' + str(vs_reference) + 'm/s')
     plotly.offline.plot(fig, filename=folder_path + '/' + 'vs_reference.html')
+    print('\033[0;32mDispersion curve and SPAC curve calculated by eIndex were done!\033[0m')
     return freq_theory_spac, spac_theory_spac

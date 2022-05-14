@@ -17,6 +17,11 @@ from pathlib import Path
 import numpy as np
 from scipy.cluster.vq import kmeans, vq
 from pandas import DataFrame
+
+from cps_disp import cps_disp
+from disp_curve_CPS import disp_curve_CPS
+from geopsy_disp import geopsy_disp
+from inversion_model import inversion_model
 from ioGpy import AutocorrTarget
 from read_page import read_page
 import plotly
@@ -274,29 +279,41 @@ def spac_cluster():
     freq = DataFrame(freq)  # list2DataFrame
     spac = DataFrame(spac)  # list2DataFrame
     #%% calculate the theory SPAC
-    r = radius  # get the radius from the .target file
-    freqSPAC = np.logspace(np.log10(0.1), np.log10(100), num=400)
-    # set the Vs0
-    Vs0 = int(input('Please input the reference Vs(nearly 1Hz, depth 57.5m) of initialization model: ...m/s \n'))
-    print('\033[0;32m-----------------------Setted!-----------------------\033[0m')
-    Vs = np.dot(Vs0, [math.pow(f, -0.65) for f in freqSPAC])
-    autoCorrRatio = jn(0, np.multiply(r*2*math.pi*freqSPAC, [math.pow(v, -1) for v in Vs]))
-    freqSPAC = DataFrame(freqSPAC)
-    freqSPAC.columns = ['freq']
-    autoCorrRatio = DataFrame(autoCorrRatio)
-    autoCorrRatio.columns = ['autoCorrRatio']
-    Vs = DataFrame(Vs)
-    Vs.columns = ['Vs']
-    # plot the initialized model
-    pio.templates.default = "plotly_white"  # set the plotly templates
-    fig = go.Figure(data=go.Scatter(x=freqSPAC['freq'], y=Vs['Vs'], name='dispersion curve'))
-    fig.update_xaxes(title_text="Frequency (Hz)")
-    fig.update_yaxes(title_text="Velocity (m/s)")
-    fig.update_xaxes(type="log")
-    fig.update_xaxes(range=[np.log10(1), np.log10(100)])
-    fig.update_yaxes(range=[0, 3000], tick0=0.0, dtick=500)
-    fig.update_layout(title='Vs(nearly 1Hz, depth 57.5m)=' + str(Vs0) + 'm/s')
-    plotly.offline.plot(fig, filename=Folderpath + '/' + 'referenceVs.html')
+    spac_method = int(input('Please choose the method to calculate the spac: [1] eIndex [2] CPS \n'))
+    # fixme: with problem when package gpdc.exe, so the current method 2 is CPS
+    if spac_method == 1:
+        r = radius  # get the radius from the .target file
+        freqSPAC = np.logspace(np.log10(0.1), np.log10(100), num=400)
+        # set the Vs0
+        Vs0 = int(input('Please input the reference Vs(nearly 1Hz, depth 57.5m) of initialization model: ...m/s \n'))
+        print('\033[0;32m-----------------------Setted!-----------------------\033[0m')
+        Vs = np.dot(Vs0, [math.pow(f, -0.65) for f in freqSPAC])
+        autoCorrRatio = jn(0, np.multiply(r*2*math.pi*freqSPAC, [math.pow(v, -1) for v in Vs]))
+        freqSPAC = DataFrame(freqSPAC)
+        freqSPAC.columns = ['freq']
+        autoCorrRatio = DataFrame(autoCorrRatio)
+        autoCorrRatio.columns = ['autoCorrRatio']
+        Vs = DataFrame(Vs)
+        Vs.columns = ['Vs']
+        print('\033[0;32mDispersion curve and SPAC curve calculated by eIndex were done!\033[0m')
+        # plot the initialized model
+        pio.templates.default = "plotly_white"  # set the plotly templates
+        fig = go.Figure(data=go.Scatter(x=freqSPAC['freq'], y=Vs['Vs'], name='dispersion curve'))
+        fig.update_xaxes(title_text="Frequency (Hz)")
+        fig.update_yaxes(title_text="Velocity (m/s)")
+        fig.update_xaxes(type="log")
+        fig.update_xaxes(range=[np.log10(1), np.log10(100)])
+        fig.update_yaxes(range=[0, 3000], tick0=0.0, dtick=500)
+        fig.update_layout(title='Vs(nearly 1Hz, depth 57.5m)=' + str(Vs0) + 'm/s')
+        plotly.offline.plot(fig, filename=Folderpath + '/' + 'eindex_disp.html')
+    if spac_method == 2:
+        r = radius
+        model_plot, vs_reference, freq_theory_spac, spac_theory_spac, R_matrix_S = disp_curve_CPS(radius)
+        cps_disp(Folderpath, model_plot, freq_theory_spac, R_matrix_S)
+        freqSPAC = freq_theory_spac
+        autoCorrRatio = spac_theory_spac
+        Vs0 = vs_reference
+
     #%% define the plotly subplot
     min_freq_x_line = DataFrame(np.ones((1, 100)) * min_freq).T
     min_freq_y_line = DataFrame(np.arange(-1, 1, 0.02))
@@ -456,7 +473,12 @@ def spac_cluster():
     fig.update_yaxes(range=[-0.6, 1.0], tick0=0.0, dtick=0.2)
     fig.update_xaxes(title_text="Frequency (Hz)")
     fig.update_yaxes(title_text="Autocorr ratio")
-    fig.update_layout(title='SPAC cluster, ' + 'Ring=' + str(radius) + 'm, ' + 'Vs(nearly 1Hz, depth 57.5m)=' + str(Vs0) + 'm/s')
+    if spac_method == 1:
+        fig.update_layout(title='SPAC cluster, ' + 'Ring=' + str(radius) + 'm, ' +
+                                'Vs(nearly 1Hz, depth 57.5m)=' + str(Vs0) + 'm/s')
+    if spac_method == 2:
+        fig.update_layout(title='SPAC cluster, ' + 'Ring=' + str(radius) + 'm, ' +
+                                'Vs average =' + str(Vs0) + 'm/s')
     fig.update_layout(
         showlegend=False,  #set the legend to be hidden
         hoverlabel=dict(

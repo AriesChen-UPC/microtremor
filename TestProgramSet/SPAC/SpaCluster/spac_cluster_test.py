@@ -16,13 +16,12 @@ from pathlib import Path
 import numpy as np
 from scipy.cluster.vq import kmeans, vq
 from pandas import DataFrame
-from ioGpy import AutocorrTarget
+from TestProgramSet.SPAC.SpaCompare.ioGpy import AutocorrTarget
 from read_page import read_page
 import plotly
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.io as pio
-import time
 from tqdm import trange
 import math
 from scipy.special import *

@@ -18,6 +18,11 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FixedLocator, FixedFormatter
+
+from cps_disp import cps_disp
+from disp_curve_CPS import disp_curve_CPS
+from geopsy_disp import geopsy_disp
+from inversion_model import inversion_model
 from read_spac import read_spac
 from theory_spac import theory_spac
 from spac_kmeans_clustering_plotly import spac_kmeans_clustering_plotly
@@ -31,9 +36,22 @@ from plot_dendrogram import plot_dendrogram
 
 folder_path, fs, names, spac, freq, spac_fliter, freq_fliter, radius, min_freq, max_freq, freq_len = read_spac()
 
-vs_reference = int(input('\033[0;36mPlease input the reference Vs(nearly 1Hz, depth 57.5m) of '
-                         'initialization model: ...m/s \n''\033[0m'))
-freq_theory_spac, spac_theory_spac = theory_spac(folder_path, radius, vs_reference)
+#%% calculate the theory spac
+
+spac_method = int(input('\033[0;31mPlease choose the method to calculate the spac: [1] eIndex [2] Geopsy'
+                        ' [3] CPS \n\033[0m'))
+if spac_method == 1:
+    # using the method of eIndex function
+    vs_reference = int(input('\033[0;36mPlease input the reference Vs(nearly 1Hz, depth 57.5m) of '
+                             'initialization model: ...m/s \n''\033[0m'))
+    freq_theory_spac, spac_theory_spac = theory_spac(folder_path, radius, vs_reference)
+if spac_method == 2:
+    # using the result of Geopsy
+    model_plot, vs_reference, freq_theory_spac, spac_theory_spac, R_matrix_S = inversion_model(radius)
+    geopsy_disp(folder_path, model_plot, freq_theory_spac, R_matrix_S)
+if spac_method == 3:
+    model_plot, vs_reference, freq_theory_spac, spac_theory_spac, R_matrix_S = disp_curve_CPS(radius)
+    cps_disp(folder_path, model_plot, freq_theory_spac, R_matrix_S)
 
 #%% kmeans clustering
 
