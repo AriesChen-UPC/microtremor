@@ -22,6 +22,15 @@ warnings.filterwarnings("ignore")
 
 
 def pykrige_func(file_path, min_color, max_color):
+    """
+    Args:
+        file_path: The file path of the data, format in xls or xlsx.
+        min_color: The minimum color limit of the data, general from 0.0 to 1.0.
+        max_color: The maximum color limit of the data, general from 0.0 to 1.0.
+
+    Returns:
+        None
+    """
     print('--------------------File Information:--------------------')
     print('File path is: %s.' % file_path)
     data = pd.read_excel(file_path)

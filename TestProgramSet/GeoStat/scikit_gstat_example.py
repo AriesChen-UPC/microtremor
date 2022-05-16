@@ -34,22 +34,31 @@ y = data['y'].to_numpy()
 vs = data['vs'].to_numpy()
 
 # view the data points
-fig_points, ax_points = plt.subplots(1, 1, figsize=(9, 9))
-art_points = ax_points.scatter(x, y, s=50, c=vs.flatten(), cmap='viridis')
-ax_points.set_title('Points', fontsize=15, fontweight='bold', pad=25)
-ax_points.set_xlabel('Distance (m)', fontsize=15, labelpad=20, fontweight="bold")
-ax_points.set_ylabel('Depth (m)', fontsize=15, labelpad=20, fontweight="bold")
-cb_points = plt.colorbar(art_points)
-cb_points.set_label('Vs (m/s)', fontsize=15, fontweight="bold")
-cb_points.ax.tick_params(labelsize=15, rotation=90)
-cb_points.ax.invert_yaxis()
-plt.show()
+# fig_points, ax_points = plt.subplots(1, 1, figsize=(9, 9))
+# art_points = ax_points.scatter(x, y, s=50, c=vs.flatten(), cmap='viridis')
+# ax_points.set_title('Points', fontsize=15, fontweight='bold', pad=25)
+# ax_points.set_xlabel('Distance (m)', fontsize=15, labelpad=20, fontweight="bold")
+# ax_points.set_ylabel('Depth (m)', fontsize=15, labelpad=20, fontweight="bold")
+# cb_points = plt.colorbar(art_points)
+# cb_points.set_label('Vs (m/s)', fontsize=15, fontweight="bold")
+# cb_points.ax.tick_params(labelsize=15, rotation=90)
+# cb_points.ax.invert_yaxis()
+# plt.show()
+
+# parameters for ordinary kriging
+V_test = skg.Variogram(coordinates=data[['x', 'y']].values, values=vs)
+V_test.model = 'spherical'
+V_test.n_lags = 15
+V_test.maxlag = 500
+fig = V_test.plot()
+
 
 #%% Ordinary Kriging
 
 print('\033[0;31mOrdinary Kriging ...\033[0m')
 time_start = time.time()
-V = Variogram(data[['x', 'y']].values, data.vs.values, model='spherical', bin_func='kmeans', maxlag='median')
+V = Variogram(data[['x', 'y']].values, data.vs.values, model='spherical', bin_func='kmeans',
+              maxlag='median')
 ok = skg.OrdinaryKriging(V, min_points=1, max_points=15)  # todo: min_points, max_points
 # build the target grid
 interval = 0.1
