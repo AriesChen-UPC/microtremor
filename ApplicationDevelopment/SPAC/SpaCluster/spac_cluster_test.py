@@ -7,7 +7,7 @@
 @file: spac_cluster.py
        This code is designead to sort the SPAC using keans and plot the result with plotly.
 """
-
+import csv
 import operator
 import os
 import tkinter as tk
@@ -486,13 +486,32 @@ def spac_cluster():
         )
     )
     # print the Classification result of SPAC
+    # for z in range(n_clusters):
+    #     print('Group {:.0f} '.format(z + 1))
+    #     s = []
+    #     for i in range(len(fs)):
+    #         if cluster[i] == z:
+    #             s.append(names[i])
+    #     print(', '.join(s))
+
+    # TODO: write the result to a csv file
+    header = []
+    group_file = []
     for z in range(n_clusters):
-        print('Group {:.0f} '.format(z + 1))
-        s = []
+        print('Group-%02.f' % (z + 1))
+        header.append('Group-%02.f' % (z + 1))
+        group = []
         for i in range(len(fs)):
             if cluster[i] == z:
-                s.append(names[i])
-        print(', '.join(s))
+                group.append(names[i])
+        group_file.insert(len(group_file), group)
+        print(', '.join(group))
+    # write the result to a csv file
+    csv_file = Folderpath + '/' + 'SPAC_cluster_result.csv'
+    with open(csv_file, 'w', encoding='UTF8') as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+        writer.writerow(group_file)
     # save the .html file
     default_html_name = Folderpath + '/' + 'spaCluster.html'
     plotly.offline.plot(fig, filename=default_html_name)

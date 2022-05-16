@@ -54,3 +54,21 @@ if __name__ == "__main__":
     print('\033[0;32mThe selected folder is %s \033[0m' % folder_path)
     spac_list = glob(folder_path + '/*.target')
     spac = read_target_test(spac_list)
+    # take the intersection
+    for key in spac.keys():
+        ring_list_random = spac[key]['ring']  # random initialization
+    for key in spac.keys():
+        ring_list = list(set(ring_list_random).intersection(set(spac[key]['ring'])))
+    print('\033[0;32mThe intersection of ring is %s \033[0m' % ring_list)
+    # select the ring
+    print('\033[0;31mPlease select the ring: \033[0m')
+    radius = input()
+    print('\033[0;32mThe selected ring is %s \033[0m' % radius)
+    spac_fliter = {}
+    for key in spac.keys():
+        freq_temp = pd.DataFrame(data=spac[key]['freq']['ring-' + radius])
+        spac_temp = pd.DataFrame(data=spac[key]['spac']['ring-' + radius])
+        spac_ = {'freq': freq_temp, 'spac': spac_temp}
+        spac_fliter[key] = spac_
+
+

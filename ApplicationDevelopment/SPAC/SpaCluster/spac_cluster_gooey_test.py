@@ -30,11 +30,14 @@ from scipy.special import *
 def main():
     parser = GooeyParser(description="This program is used to cluster the SPAC using kmeans method!")
     parser.add_argument('Path', help="Please select the SPAC data path.", widget="DirChooser")
-    parser.add_argument('Target', help="The filetype is .target ? (Y/y for .target, N/n for .page)", widget="TextField")
-    parser.add_argument('minFreq', help="Please input the min freq.", widget="TextField")
-    parser.add_argument('maxFreq', help="Please input the max freq.", widget="TextField")
-    parser.add_argument('Number', help="Please input the number of clusters.", widget="TextField")
-    parser.add_argument('SPAC', help="Please select the output path.", widget="Dropdown", choices=['eIndex', 'CPS'])
+    parser.add_argument('Target', help="The filetype is .target ? (Y/y for .target, N/n for .page)", widget="Dropdown",
+                        choices=['Y', 'N'], default='Y')
+    parser.add_argument('minFreq', help="Please input the min freq.", widget="TextField", default=2)
+    parser.add_argument('maxFreq', help="Please input the max freq.", widget="TextField", default=20)
+    parser.add_argument('Number', help="Please input the number of clusters.", widget="TextField", default=6)
+    parser.add_argument('SPAC', help="Please select the method for reference SPAC. If choose eIndex, VS parameters "
+                                     "must be provided. If choose CPS, model must be selected.",
+                        widget="Dropdown", choices=['eIndex', 'CPS'])
     parser.add_argument('-Radius', help="Please input the radius of SPAC.", widget="TextField")
     parser.add_argument('-VS', help="Please input the reference VS.", widget="TextField")
     parser.add_argument('-Model', help="Please select the model path.", widget="FileChooser")

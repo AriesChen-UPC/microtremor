@@ -41,3 +41,8 @@
 2022-05-11 10:15:20.133 | INFO     | pysgems.sgems.sg:__init__:60 - sgems exe file : sgems-x64.exe in E:\Program Files\SGeMS-x64-Beta
 2022-05-11 10:15:20.134 | INFO     | pysgems.io.sgio:loader:187 - Data loaded.
 2022-05-11 10:15:20.135 | INFO     | pysgems.io.sgio:__init__:165 - 2D dataset detected.
+2022-05-14 10:17:54.560 | INFO     | pysgems.sgems.sg:__init__:33 - Project sgems_test initiated
+2022-05-14 10:17:54.560 | INFO     | pysgems.sgems.sg:__init__:44 - GSTLAPPLIHOME environment variable found
+2022-05-14 10:17:54.561 | INFO     | pysgems.sgems.sg:__init__:60 - sgems exe file : sgems-x64.exe in E:\Program Files\SGeMS-x64-Beta
+2022-05-14 10:17:54.562 | INFO     | pysgems.io.sgio:loader:187 - Data loaded.
+2022-05-14 10:17:54.563 | INFO     | pysgems.io.sgio:__init__:165 - 2D dataset detected.
