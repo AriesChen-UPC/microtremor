@@ -11,8 +11,7 @@ from gooey import Gooey, GooeyParser
 from pykrige_func import pykrige_func
 
 
-@Gooey(program_name='VS Plot', required_cols=1, optional_cols=2, default_size=(700, 550), encoding="utf-8",
-       progress_regex=r"^progress: (\d+)%$")
+@Gooey(program_name='VS Plot', required_cols=1, optional_cols=2, default_size=(700, 550), encoding="utf-8")
 def main():
     parser = GooeyParser(description="This program is used to plot the VS profile using Kriging method!")
     parser.add_argument('Filepath', help="Please select the data(.xls, .xlsx) path.", widget="DirChooser")

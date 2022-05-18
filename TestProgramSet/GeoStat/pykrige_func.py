@@ -99,7 +99,7 @@ def pykrige_func(file_path, min_color, max_color):
     spectrum_cmap_ = ListedColormap(spectrum_reference_big(np.linspace(0.0, 1.0, 256)))
     mycmap = ListedColormap(spectrum_reference_big(np.linspace(minColorIndex, maxColorIndex, 256)))
     # imshow
-    plt.imshow(vs_, cmap=mycmap, zorder=20)
+    plt.imshow(vs_, cmap='RdYlBu_r', zorder=20)
     # set the x, y ticks information
     if 0 < x.max() - x.min() <= 50:
         if len(gridx) % 50 == 0:
@@ -157,7 +157,7 @@ def pykrige_func(file_path, min_color, max_color):
     axes.set_ylabel('深度(米)', fontsize=fig_font_size, fontweight="bold")
     # set the colorbar
     norm = mpl.colors.Normalize(vmin=200, vmax=800)
-    cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=spectrum_cmap_),
+    cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap='RdYlBu_r'),  # colorbar: spectrum_cmap_
                       ax=axes, shrink=0.7, pad=0.005, aspect=20)
     cb.outline.set_visible(False)
     cb.set_label('横波速度(米/秒)', fontsize=fig_font_size, fontweight="bold")

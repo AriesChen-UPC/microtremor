@@ -19,8 +19,7 @@ exe_dir = "E:/anaconda3/Lib/site-packages/pygeostat/executable/"  # fixme： CCG
 gs.PlotStyle['font.size'] = 12
 gs.Parameters['data.tmin'] = -998
 
-dfl = gs.DataFile("./point2d_surf.dat")
-# dfl = gs.ExampleData('point2d_surf')
+dfl = gs.ExampleData('point2d_surf')
 dfl.head()
 dfl.info
 dfl.describe()
@@ -29,11 +28,11 @@ for var in dfl.variables:
     plt.show()
 _ = gs.scatter_plots(dfl)
 plt.show()
-fig, axes = gs.subplots(1, len(dfl.variables), axes_pad=(0.9, 0.4), figsize= (25,5), cbar_mode='each', label_mode='L')
+fig, axes = gs.subplots(1, len(dfl.variables), axes_pad=(0.9, 0.4), figsize=(25, 5), cbar_mode='each', label_mode='L')
 for i, var in enumerate(dfl.variables):
     gs.location_plot(dfl, var=var, ax=axes[i])
 plt.show()
-nscore_p = gs.Program(program=exe_dir+'nscore.exe', getpar=True)
+nscore_p = gs.Program(program=exe_dir + 'nscore.exe', getpar=True)
 parstr = """      Parameters for NSCORE
                   *********************
 
@@ -63,7 +62,7 @@ dfl_ns = gs.DataFile(nscore_outfl)
 dfl_ns.head()
 for var in dfl_ns.variables:
     if 'ns' in var.lower():
-        gs.histogram_plot(dfl_ns, var=var, color='g', figsize = (7,4))
+        gs.histogram_plot(dfl_ns, var=var, color='g', figsize=(7, 4))
         plt.show()
 dfl_ns.spacing(n_nearest=2)
 dfl_ns.head()
@@ -72,10 +71,10 @@ print('average data spacing in XY plane: {:.3f} {}'.format(lag_length_h,
                                                            gs.Parameters['plotting.unit']))
 x_range = np.ptp(dfl[dfl.x].values)
 y_range = np.ptp(dfl[dfl.y].values)
-n_lag_x =  np.ceil((x_range * 0.5) /  lag_length_h)
-n_lag_y =  np.ceil((y_range * 0.5) /  lag_length_h)
+n_lag_x = np.ceil((x_range * 0.5) / lag_length_h)
+n_lag_y = np.ceil((y_range * 0.5) / lag_length_h)
 lag_tol_h = lag_length_h * 0.6
-var_calc = gs.Program(program=exe_dir+'varcalc')
+var_calc = gs.Program(program=exe_dir + 'varcalc')
 parstr = """      Parameters for VARCALC
                   **********************
 
@@ -113,10 +112,10 @@ varfl = gs.DataFile(varcalc_outfl)
 varfl.head()
 colors = gs.get_palette('cat_dark', n_directions, cmap=False)
 titles = ['Major', 'Minor', 'Vertical']
-fig, axes = plt.subplots(1, n_directions, figsize= (20,4))
+fig, axes = plt.subplots(1, n_directions, figsize=(20, 4))
 for i in range(n_directions):
-    gs.variogram_plot(varfl, index=i+1, ax = axes[i], color=colors[i], title = titles[i], grid=True)
-var_model = gs.Program(program=exe_dir+'varmodel')
+    gs.variogram_plot(varfl, index=i + 1, ax=axes[i], color=colors[i], title=titles[i], grid=True)
+var_model = gs.Program(program=exe_dir + 'varmodel')
 parstr = """      Parameters for VARMODEL
                   ***********************
 
@@ -150,12 +149,12 @@ var_model.run(parstr=parstr.format(varmodel_outfl=varmodel_outfl,
                                    varcalc_outfl=varcalc_outfl), liveoutput=False, quiet=True)
 varmdl = gs.DataFile(varmodel_outfl)
 varmdl.head()
-fig, axes = plt.subplots(1, n_directions, figsize= (20,4))
+fig, axes = plt.subplots(1, n_directions, figsize=(20, 4))
 for i in range(n_directions):
-    gs.variogram_plot(varfl, index=i+1, ax = axes[i], color=colors[i], title = titles[i], grid=True)
-    gs.variogram_plot(varmdl, index=i+1, ax = axes[i], color=colors[i], experimental=False)
+    gs.variogram_plot(varfl, index=i + 1, ax=axes[i], color=colors[i], title=titles[i], grid=True)
+    gs.variogram_plot(varmdl, index=i + 1, ax=axes[i], color=colors[i], experimental=False)
 print(dfl_ns.infergriddef(nblk=[200, 200, 1]))
-kt3dn = gs.Program(exe_dir+'kt3dn', getpar=True)
+kt3dn = gs.Program(exe_dir + 'kt3dn', getpar=True)
 parstr_ = """     Parameters for KT3DN
                  ********************
 START OF PARAMETERS:
@@ -204,10 +203,10 @@ kt3dn.run(parstr=parstr, liveoutput=True)
 krigfl = gs.DataFile(krig_output, griddef=dfl_ns.griddef)
 krigfl.head()
 cmaps = ['inferno', 'jet', 'bwr', 'viridis']
-fig, axes = gs.subplots(2, 2, axes_pad=(0.9, 0.4), figsize= (20,15), cbar_mode='each', label_mode='L')
+fig, axes = gs.subplots(2, 2, axes_pad=(0.9, 0.4), figsize=(20, 15), cbar_mode='each', label_mode='L')
 for i, ax in enumerate(axes):
     gs.slice_plot(krigfl, var='Estimate', orient='xy', cmap=cmaps[i], ax=ax, pointdata=dfl_ns,
-                  pointvar='Top Elevation', pointkws={'edgecolors':'k', 's':25})
+                  pointvar='Top Elevation', pointkws={'edgecolors': 'k', 's': 25})
 # Clean up
 try:
     gs.rmfile('kt3dn.sum')
