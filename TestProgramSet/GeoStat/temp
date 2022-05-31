@@ -11,5 +11,5 @@ E:\anaconda3\lib\site-packages\pygeostat\data\example_data\cluster.dat          
 ../histsmth/histsmth.out  -file with reference distribution.
 1   2   0                 -  columns for variable, weight, and category
 101                       -maximum number of quantiles, 0 for all
-D:/MyProject/Python/PycharmProjects/DataProcessing/Microtremor/TestProgramSet/GeoStat/Output\nscore.out                   -file for output
-D:/MyProject/Python/PycharmProjects/DataProcessing/Microtremor/TestProgramSet/GeoStat/Output\nscore.trn                   -file for output transformation table
+./Output/nscore.out                   -file for output
+./Output/nscore.trn                   -file for output transformation table

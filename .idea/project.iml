@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/ApplicationDevelopment/SPAC/SpaCluster" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ApplicationDevelopment/SPAC/SpaCluster/spac_cluster" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/TestProgramSet/GeoStat" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TestProgramSet/SPAC/SpaCompare" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (base)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

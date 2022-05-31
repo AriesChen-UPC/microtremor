@@ -14,7 +14,7 @@ from matplotlib import pyplot as plt
 outdir = 'D:/MyProject/Python/PycharmProjects/DataProcessing/Microtremor/TestProgramSet/GeoStat/Output'
 gs.mkdir(outdir)
 # path to GSLIB executables
-exe_dir = "E:/anaconda3/Lib/site-packages/pygeostat/executable/"  # fixme： CCG/GSLIB software is the CCG memebers'  option
+exe_dir = "E:/anaconda3/Lib/site-packages/pygeostat/executable/"  # fixme： Additional Software (CCG Members)
 
 gs.PlotStyle['font.size'] = 12
 gs.Parameters['data.tmin'] = -998
@@ -33,9 +33,9 @@ for i, var in enumerate(dfl.variables):
     gs.location_plot(dfl, var=var, ax=axes[i])
 plt.show()
 nscore_p = gs.Program(program=exe_dir + 'nscore.exe', getpar=True)
+# TODO: check the parameters
 parstr = """      Parameters for NSCORE
                   *********************
-
 START OF PARAMETERS:
 {datafile}               -  file with data
 {n_var}  4 5 6           -  number of variables and columns
@@ -57,7 +57,7 @@ pars = dict(datafile=dfl.flname,
             n_var=len(dfl.variables),
             outfl=nscore_outfl,
             trnfl=os.path.join(outdir, 'nscore.trn'))
-nscore_p.run(parstr=parstr.format(**pars), quiet=True, liveoutput=True)  # fixme: ERROR in parameter file
+nscore_p.run(parstr=parstr.format(**pars), quiet=True, liveoutput=True)  # FIXME: ERROR in parameter file
 dfl_ns = gs.DataFile(nscore_outfl)
 dfl_ns.head()
 for var in dfl_ns.variables:

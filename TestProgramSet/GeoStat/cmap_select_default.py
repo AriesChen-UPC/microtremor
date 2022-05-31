@@ -3,7 +3,7 @@
 @author: AriesChen
 @contact: s15010125@s.upc.edu.cn
 @time: 5/17/2022 4:55 PM
-@file: cmap_select_default.py
+@file: cmap_select_default.py: This script is used to select the default colormap.
 """
 
 import numpy as np

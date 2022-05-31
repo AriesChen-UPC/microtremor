@@ -14,14 +14,14 @@ import plotly.graph_objects as go
 import plotly.io as pio
 
 
-def hvsr_plotly(hvsr_all, point_name, period_name, folder_path):
+def hvsr_plotly(hvsr_all, point_name, period_hvsr_label, folder_path):
     """
     Args:
         freq_all: the list of frequency
         spac_all: the list of spac
         ring_name: the list of ring
         point_name: the list of point name
-        period_name: the list of period name
+        period_hvsr_label: the list of period name
 
     Returns:
 
@@ -33,8 +33,7 @@ def hvsr_plotly(hvsr_all, point_name, period_name, folder_path):
     # plot the hvsr
     max_all = 0
     for m in range(len(hvsr_all)):
-        fig.add_trace(go.Scatter(x=hvsr_all[m]['freq'], y=hvsr_all[m]['avg'], name=period_name[m],
-                                 showlegend=True,
+        fig.add_trace(go.Scatter(x=hvsr_all[m]['freq'], y=hvsr_all[m]['avg'], name=period_hvsr_label[m],
                                  line=dict(
                                          color=color_list[m]
                                  )), row=1, col=1)
@@ -47,12 +46,12 @@ def hvsr_plotly(hvsr_all, point_name, period_name, folder_path):
     fig.update_yaxes(title_text="H/V")
     fig.update_layout(title=point_name)
     fig.update_layout(
-        showlegend=False,  # set the legend to be hidden
+        showlegend=False,
         hoverlabel=dict(
             namelength=-1,  # set the name length
         )
     )
-    fig_path = os.path.dirname(folder_path) + '/' + 'hvCompare'
+    fig_path = os.path.dirname(folder_path) + '/Compare' + '/hvCompare'
     if not os.path.exists(fig_path):
         os.makedirs(fig_path)
     fig_name = fig_path + '/' + point_name + '.html'

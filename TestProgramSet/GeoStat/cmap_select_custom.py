@@ -3,7 +3,7 @@
 @author: AriesChen
 @contact: s15010125@s.upc.edu.cn
 @time: 5/17/2022 4:55 PM
-@file: cmap_select_default.py
+@file: cmap_select_default.py: This script is used to select the custom colormap.
 """
 
 import numpy as np
@@ -40,9 +40,3 @@ if __name__ == '__main__':
     ax[0].imshow([colors_rgb], extent=[0, 10, 0, 1])
     ax[1].imshow([grayscale], extent=[0, 10, 0, 1])
     plt.show()
-
-
-
-
-
-

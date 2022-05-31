@@ -3,7 +3,7 @@
 @author: AriesChen
 @contact: s15010125@s.upc.edu.cn
 @time: 4/15/2022 11:26 AM
-@file: pykrige_example_package.py
+@file: pykrige_example_package.py: This script is used to test the pykrige package.
 """
 
 import os

@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 
 
-def target_plotly(freq_all, spac_all, ring_name, point_name, period_name, folder_path,
+def target_plotly(freq_all, spac_all, ring_name, point_name, period_spac_label, folder_path,
                   is_cps=False, theory_freq=None, theory_spac=None):
     """
     Args:
@@ -22,7 +22,7 @@ def target_plotly(freq_all, spac_all, ring_name, point_name, period_name, folder
         spac_all: the list of spac
         ring_name: the list of ring
         point_name: the list of point name
-        period_name: the list of period name
+        period_spac_label: the list of period name
 
     Returns:
 
@@ -38,15 +38,14 @@ def target_plotly(freq_all, spac_all, ring_name, point_name, period_name, folder
             fig.add_trace(go.Scatter(x=theory_freq[i]['freq'], y=theory_spac[i]['autoCorrRatio'], name='theory SPAC',
                                      line=dict(color='rgb(132,133,135)', width=2, dash='dash')), row=1, col=i + 1)
             for j in range(len(spac_all)):
-                fig.add_trace(go.Scatter(x=freq_all[j][i], y=spac_all[j][i], name=period_name[j],
-                                         showlegend=True,
+                fig.add_trace(go.Scatter(x=freq_all[j][i], y=spac_all[j][i], name=period_spac_label[j],
                                          line=dict(
                                              color=color_list[j]
                                          )), row=1, col=i + 1)
     else:
         for i in range(column_num):
             for j in range(len(spac_all)):
-                fig.add_trace(go.Scatter(x=freq_all[j][i], y=spac_all[j][i], name=period_name[j],
+                fig.add_trace(go.Scatter(x=freq_all[j][i], y=spac_all[j][i], name=period_spac_label[j],
                                          showlegend=True,
                                          line=dict(
                                                  color=color_list[j]
@@ -58,12 +57,12 @@ def target_plotly(freq_all, spac_all, ring_name, point_name, period_name, folder
     fig.update_yaxes(title_text="Autocorr ratio")
     fig.update_layout(title=point_name)
     fig.update_layout(
-        showlegend=False,  # set the legend to be hidden
+        showlegend=False,
         hoverlabel=dict(
             namelength=-1,  # set the name length
         )
     )
-    fig_path = os.path.dirname(folder_path) + '/' + 'spaCompare'
+    fig_path = os.path.dirname(folder_path) + '/Compare' + '/spaCompare'
     if not os.path.exists(fig_path):
         os.makedirs(fig_path)
     fig_name = fig_path + '/' + point_name + '.html'

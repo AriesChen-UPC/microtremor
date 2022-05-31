@@ -72,3 +72,12 @@ if __name__ == "__main__":
         spac_fliter[key] = spac_
 
 
+#%% read target with xml.dom
+
+from xml.dom import minidom
+
+dom = minidom.parse("D:\\ProjectMaterials\\Chengdu_Line13\\Part_02\\DataProcess\\20220407\\ZDK21+742\\"
+                    "grid\\ZDK21+742-Grid[1-1].target")
+names = dom.getElementsByTagName("x")  # get the name of the node, 'x', 'imag', 'mean', 'stddev', 'weight', 'valid'
+for i in range(len(names)):
+    print(names[i].firstChild.data)
