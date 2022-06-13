@@ -12,7 +12,7 @@ from tkinter import filedialog
 from glob import glob
 import pandas as pd
 from read_target import read_target
-from target_plotly import target_plotly
+from spac_plotly import spac_plotly
 from hvsr_plotly import hvsr_plotly
 import colorama
 colorama.init(autoreset=True)
@@ -24,7 +24,9 @@ root.withdraw()
 folder_path = filedialog.askdirectory()
 period_path = glob(os.path.join(folder_path, '*'))
 print('\033[0;34mThe path of the data is: %s.\033[0m' % folder_path)
+print('------------------------------')
 print('\033[0;34mThe number of the period is: %d.\033[0m' % len(period_path))
+print('------------------------------')
 # initialize the global variables
 period_spac_total = []
 period_hvsr_total = []
@@ -32,7 +34,7 @@ period_name = []
 # read the data
 for i in range(len(period_path)):
     subfolder_name = os.listdir(period_path[i])
-    format_name = [subfolder_name[i].replace('+', '') for i in range(len(subfolder_name))]
+    format_name = [subfolder_name[i].replace('+', '') for i in range(len(subfolder_name))]  # remove '+' in the name
     period_spac = {}
     perido_hvsr = {}
     for j in range(len(subfolder_name)):
@@ -45,38 +47,40 @@ for i in range(len(period_path)):
 period_spac_dict = dict(zip(period_name, period_spac_total))
 period_hvsr_dict = dict(zip(period_name, period_hvsr_total))
 # merge the spac data by name, and plot the spac data
-spac_combine = {}
-for key in period_spac_dict:
-    for k, v in period_spac_dict[key].items():
-        if k in spac_combine:
-            spac_combine[k].extend(v)
+spac_combine = {}  # TODO: streamline code here
+for spac_key in period_spac_dict:
+    for spac_k, spac_v in period_spac_dict[spac_key].items():
+        if spac_k in spac_combine:
+            spac_combine[spac_k].extend(spac_v)
         else:
-            spac_combine[k] = v
-for key in spac_combine.keys():
-    ring_all, freq_all, spac_all, is_ring_same = read_target(spac_combine[key])
+            spac_combine[spac_k] = spac_v
+for spac_all_key in spac_combine.keys():  # TODO: change the method of reading .target file
+    ring_all, freq_all, spac_all, is_ring_same = read_target(spac_combine[spac_all_key])
     period_spac_label = []
-    for m in range(len(spac_combine[key])):
-        period_spac_label.append(spac_combine[key][m].replace('\\', '/').split('/')[-3])
+    for m in range(len(spac_combine[spac_all_key])):
+        period_spac_label.append(spac_combine[spac_all_key][m].replace('\\', '/').split('/')[-3])  # get the period name
     if is_ring_same:
+        print('\033[0;32mThe ring is the same in the point of %s.\033[0m' % spac_all_key)
         ring_name = ring_all[0]
-        target_plotly(freq_all, spac_all, ring_name, key, period_spac_label, folder_path)
+        spac_plotly(freq_all, spac_all, ring_name, spac_all_key, period_spac_label, folder_path)
     else:
-        print('\033[0;31mThe ring is not the same in the point %s.\033[0m' % key)
+        print('\033[0;31mThe ring is not the same in the point of %s.\033[0m' % spac_all_key)
 # merge the hvsr data by name, and plot the hvsr data
 hvsr_combine = {}
-for key in period_hvsr_dict:
-    for k, v in period_hvsr_dict[key].items():
-        if k in hvsr_combine:
-            hvsr_combine[k].extend(v)
+for hvsr_key in period_hvsr_dict:
+    for hvsr_k, hvsr_v in period_hvsr_dict[hvsr_key].items():
+        if hvsr_k in hvsr_combine:
+            hvsr_combine[hvsr_k].extend(hvsr_v)
         else:
-            hvsr_combine[k] = v
-for key in hvsr_combine.keys():
+            hvsr_combine[hvsr_k] = hvsr_v
+for hvsr_all_key in hvsr_combine.keys():
     hvsr_all = []
-    for hvsr in hvsr_combine[key]:
-        hvsr_all.append(pd.read_table(filepath_or_buffer=hvsr, sep='\t', skiprows=9,
+    for hvsr in hvsr_combine[hvsr_all_key]:
+        hvsr_all.append(pd.read_table(filepath_or_buffer=hvsr, sep='\t', skiprows=9,  # header lines = 9
                                       names=['freq', 'avg', 'max', 'min']))
     period_hvsr_label = []
-    for n in range(len(hvsr_combine[key])):
-        period_hvsr_label.append(hvsr_combine[key][n].replace('\\', '/').split('/')[-3])
-    hvsr_plotly(hvsr_all, key, period_hvsr_label, folder_path)
+    for n in range(len(hvsr_combine[hvsr_all_key])):
+        period_hvsr_label.append(hvsr_combine[hvsr_all_key][n].replace('\\', '/').split('/')[-3])
+    hvsr_plotly(hvsr_all, hvsr_all_key, period_hvsr_label, folder_path)
+print('------------------------------')
 print('\033[0;32mThe program is finished.\033[0m')

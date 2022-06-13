@@ -32,12 +32,12 @@ def hvsr_plotly(hvsr_all, point_name, period_hvsr_label, folder_path):
     fig = make_subplots(rows=1, cols=1)
     # plot the hvsr
     max_all = 0
-    for m in range(len(hvsr_all)):
+    for m in range(len(hvsr_all)):  # FIXME: When len(hvsr_all)=1, the display of the name is not normal
         fig.add_trace(go.Scatter(x=hvsr_all[m]['freq'], y=hvsr_all[m]['avg'], name=period_hvsr_label[m],
                                  line=dict(
                                          color=color_list[m]
                                  )), row=1, col=1)
-        hvsr_max = np.max(hvsr_all[m]['avg'].iloc[175:332])  # todo: the range of hvsr in frequency [2, 30]
+        hvsr_max = np.max(hvsr_all[m]['avg'].iloc[175:332])  # TODO: the range of hvsr in frequency [2, 30]
         max_all = max_all if max_all > hvsr_max else hvsr_max
 
     fig.update_xaxes(type="log", range=[np.log10(1), np.log10(100)])

@@ -3,7 +3,7 @@
 @author: AriesChen
 @contact: s15010125@s.upc.edu.cn
 @time: 4/26/2022 1:14 PM
-@file: target_plotly.py
+@file: spac_plotly.py
 """
 
 import os
@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 
 
-def target_plotly(freq_all, spac_all, ring_name, point_name, period_spac_label, folder_path,
+def spac_plotly(freq_all, spac_all, ring_name, point_name, period_spac_label, folder_path,
                   is_cps=False, theory_freq=None, theory_spac=None):
     """
     Args:
@@ -46,7 +46,6 @@ def target_plotly(freq_all, spac_all, ring_name, point_name, period_spac_label, 
         for i in range(column_num):
             for j in range(len(spac_all)):
                 fig.add_trace(go.Scatter(x=freq_all[j][i], y=spac_all[j][i], name=period_spac_label[j],
-                                         showlegend=True,
                                          line=dict(
                                                  color=color_list[j]
                                          )), row=1, col=i + 1)

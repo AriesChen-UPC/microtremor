@@ -61,7 +61,3 @@ def inversion_model(radius):
     R_matrix_S.columns = ['rayleigh']
     print('\033[0;32mDispersion curve and SPAC curve calculated by Geopsy were done!\033[0m')
     return model_plot, vs_reference, freq_theory_spac, spac_theory_spac, R_matrix_S
-
-
-
-
