@@ -96,3 +96,5 @@ cb = plt.colorbar(shrink=0.8)
 cb.ax.invert_yaxis()
 cb.ax.tick_params(labelsize=60)
 plt.show()
+fig_save_name = file_path + '/' + os.path.split(file_path)[1].split('.')[0] + '.png'
+fig.savefig(fig_save_name, format='png', bbox_inches='tight', dpi=96, transparent=True)

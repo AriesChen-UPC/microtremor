@@ -21,7 +21,7 @@ mpl.rc('font', family='SimHei', weight='bold')
 warnings.filterwarnings("ignore")
 
 
-def pykrige_func(file_path, min_color, max_color):
+def pykrige_func(file_path, nlags, weight, anisotropy_scaling, anisotropy_angle, min_color, max_color):
     """
     Args:
         file_path: The file path of the data, format in xls or xlsx.
@@ -74,8 +74,8 @@ def pykrige_func(file_path, min_color, max_color):
     # Ordinary Kriging
     print('------------------Interpolation method:------------------')
     print("The current method is: Ordinary Kriging.")
-    OK = OrdinaryKriging(x, y, vs, variogram_model="spherical", nlags=30, anisotropy_scaling=3.0, exact_values=False,
-                         pseudo_inv=True)
+    OK = OrdinaryKriging(x, y, vs, variogram_model="spherical", nlags=nlags, weight=weight, anisotropy_scaling=float(anisotropy_scaling),
+                         anisotropy_angle=float(anisotropy_angle), exact_values=False, pseudo_inv=True)
     vs_, ss = OK.execute("grid", gridx, gridy)
     # plot the result of Kriging
     fig, axes = plt.subplots(1, 1, figsize=(len(gridx) / 10, len(gridy) / 10))
@@ -99,7 +99,7 @@ def pykrige_func(file_path, min_color, max_color):
     spectrum_cmap_ = ListedColormap(spectrum_reference_big(np.linspace(0.0, 1.0, 256)))
     mycmap = ListedColormap(spectrum_reference_big(np.linspace(minColorIndex, maxColorIndex, 256)))
     # imshow
-    plt.imshow(vs_, cmap='RdYlBu_r', zorder=20)
+    plt.imshow(vs_, cmap=mycmap, zorder=20)
     # set the x, y ticks information
     if 0 < x.max() - x.min() <= 50:
         if len(gridx) % 50 == 0:
@@ -146,7 +146,7 @@ def pykrige_func(file_path, min_color, max_color):
                      length=20, width=2)
     axes.xaxis.set_ticks_position("bottom")
     axes.set_xlabel('里程区间' + '(' + line_kilo_num + ')', fontsize=fig_font_size, labelpad=20, fontweight="bold")
-    y_ticks = [i for i in range(0, len(gridy) + 50, 50)]
+    y_ticks = [i for i in range(0, len(gridy) + 10, 50)]
     y_labels = [int(i / 10) for i in y_ticks]
     y_labels.sort(reverse=True)
     axes.set_yticks(y_ticks)
@@ -157,7 +157,7 @@ def pykrige_func(file_path, min_color, max_color):
     axes.set_ylabel('深度(米)', fontsize=fig_font_size, fontweight="bold")
     # set the colorbar
     norm = mpl.colors.Normalize(vmin=200, vmax=800)
-    cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap='RdYlBu_r'),  # colorbar: spectrum_cmap_
+    cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=spectrum_cmap_),  # colorbar: spectrum_cmap_
                       ax=axes, shrink=0.7, pad=0.005, aspect=20)
     cb.outline.set_visible(False)
     cb.set_label('横波速度(米/秒)', fontsize=fig_font_size, fontweight="bold")
@@ -189,18 +189,18 @@ def pykrige_func(file_path, min_color, max_color):
     label_size = len(gridx) if len(gridx) > len(gridy) else len(gridy)  # set the size of the label
     plt.scatter(points_x, points_y, marker='v', c='c', s=label_size, zorder=10)
     # plot mask for interpolation points
-    if is_interpolation:
-        if is_man_interpolation:
-            for k in range(len(points_unreal)):
-                x_inter_value.append(points_unreal['x'].values[k])
-    else:
-        if is_man_interpolation:
-            for k in range(len(points_unreal)):
-                x_inter_value.append(points_unreal['x'].values[k])
-    if x_inter_value:
-        for value in x_inter_value:
-            mask_value = (value - x.min()) / 0.1 - 30
-            axes.add_patch(patches.Rectangle((mask_value, 0), 60, len(gridy), color='white', alpha=0.3, zorder=40))
+    # if is_interpolation:
+    #     if is_man_interpolation:
+    #         for k in range(len(points_unreal)):
+    #             x_inter_value.append(points_unreal['x'].values[k])
+    # else:
+    #     if is_man_interpolation:
+    #         for k in range(len(points_unreal)):
+    #             x_inter_value.append(points_unreal['x'].values[k])
+    # if x_inter_value:
+    #     for value in x_inter_value:
+    #         mask_value = (value - x.min()) / 0.1 - 30
+    #         axes.add_patch(patches.Rectangle((mask_value, 0), 60, len(gridy), color='white', alpha=0.3, zorder=40))
     # set the border of the figure
     axes.set_xlim((-5, len(gridx) + 5))
     axes.set_ylim((0, len(gridy) + 10))

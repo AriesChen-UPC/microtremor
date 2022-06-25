@@ -75,8 +75,8 @@ y = data_plot['y'].to_numpy()
 vs = data_plot['vs'].to_numpy()
 
 # scatter plot
-# sns.scatterplot(data=data, x="x", y="y", hue="vs")
-# plt.show()
+sns.scatterplot(data=data, x="x", y="y", hue="vs")
+plt.show()
 
 # histogram plot
 # sns.set_style("whitegrid")
@@ -92,8 +92,8 @@ gridx = np.arange(x.min(), x.max(), 0.1)
 gridy = np.arange(y.min(), y.max(), 0.1)
 # Ordinary Kriging
 print("\033[0;36mThe current method is: Ordinary Kriging.\033[0m")
-OK = OrdinaryKriging(x, y, vs, variogram_model="spherical", nlags=30, anisotropy_scaling=3.0, enable_plotting=True,
-                     enable_statistics=True, exact_values=False, pseudo_inv=True)
+OK = OrdinaryKriging(x, y, vs, variogram_model="spherical", nlags=30, weight=True, anisotropy_scaling=2.0,
+                     enable_plotting=True, enable_statistics=True, exact_values=False, pseudo_inv=True)
 # OK = OrdinaryKriging(x, y, vs, variogram_model="spherical")
 vs_, ss = OK.execute("grid", gridx, gridy)  # TODO: vs_ is a masked array
 # Universal Kriging
@@ -116,14 +116,16 @@ color_dict = ["blue", "cyan", "yellow", "red"]
 spectrum_cmap = colors.LinearSegmentedColormap.from_list('my_colormap', color_dict, N=512)
 spectrum_reference_big = cm.get_cmap(spectrum_cmap, 512)
 spectrum_cmap_ = ListedColormap(spectrum_reference_big(np.linspace(0.0, 1.0, 256)))
-mycmap = ListedColormap(spectrum_reference_big(np.linspace(minColorIndex, maxColorIndex, 256)))
+# mycmap = ListedColormap(spectrum_reference_big(np.linspace(minColorIndex, maxColorIndex, 256)))
+mycmap = ListedColormap(spectrum_reference_big(np.linspace(0.0, 0.55, 256)))
 # jet colormap
 # cmap_reference_big = cm.get_cmap('jet', 512)
 # mycmap = ListedColormap(cmap_reference_big(np.linspace(colormap_scale_min, colormap_scale_max, 256)))
 # TODO: matshow, imshow
 plt.imshow(vs_, cmap=mycmap, zorder=20)  # cmap='RdYlBu_r'
 # plt.imshow(vs_, cmap=mycmap, vmin=int(vs.min()), vmax=int(vs.max()), zorder=20)  # cmap='RdYlBu_r'
-# set the x, y ticks information
+
+#%% set the x, y ticks information
 if 0 < x.max() - x.min() <= 50:
     if len(gridx) % 50 == 0:
         x_ticks = [i for i in range(0, len(gridx) + 50, 50)]
@@ -169,7 +171,7 @@ axes.tick_params(axis='x',
                  length=20, width=2)  # space between x-axis and x-ticks
 axes.xaxis.set_ticks_position("bottom")
 axes.set_xlabel('里程区间' + '(' + line_kilo_num + ')', fontsize=fig_font_size, labelpad=20, fontweight="bold")
-y_ticks = [i for i in range(0, len(gridy) + 50, 50)]
+y_ticks = [i for i in range(0, len(gridy) + 10, 50)]
 y_labels = [int(i/10) for i in y_ticks]
 y_labels.sort(reverse=True)
 axes.set_yticks(y_ticks)
