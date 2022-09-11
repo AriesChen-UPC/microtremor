@@ -18,6 +18,7 @@ from matplotlib.colors import ListedColormap
 from pykrige.ok import OrdinaryKriging
 import matplotlib.pyplot as plt
 from matplotlib import cm, colors
+from pykrige_editest import pykrige_editest
 
 
 def read_model(model, position):
@@ -43,7 +44,8 @@ def read_model(model, position):
 
     model_data = pd.DataFrame(layer).dropna(axis=0)  # model format in Geopsy
     model_data.columns = ['thickness', 'vp', 'vs', 'density']
-    model_data.loc[0] = [0, 350, 150, 2000]  # set the first layer
+    # model_data.loc[0] = [0, 350, 150, 2000]  # set the first layer
+    model_data.loc[0] = model_data.loc[1]
     model_data.sort_index(inplace=True)
     model_data.drop([len(model_data)-1], inplace=True)
     model_data['depth'] = model_data['thickness'].cumsum()
@@ -98,3 +100,6 @@ cb.ax.tick_params(labelsize=60)
 plt.show()
 fig_save_name = file_path + '/' + os.path.split(file_path)[1].split('.')[0] + '.png'
 fig.savefig(fig_save_name, format='png', bbox_inches='tight', dpi=96, transparent=True)
+
+#%% pykrige_editest function
+pykrige_editest(data)
