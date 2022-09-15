@@ -2,12 +2,11 @@
 """
 @author: AriesChen
 @contact: s15010125@s.upc.edu.cn
-@time: 5/11/2022 7:06 PM
-@file: pykrige_editest.py
+@time: 9/15/2022 1:30 PM
+@file: vs_plot.py
 """
 
 import os
-import time
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
@@ -20,22 +19,23 @@ mpl.rc('font', family='SimHei', weight='bold')
 warnings.filterwarnings("ignore")
 
 
-def pykrige_editest(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotropy_angle=0, min_color=0, max_color=1):
+def vs_plot(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotropy_angle=0.0, min_color=0.0, max_color=1.0,
+            file_path=os.getcwd()):
     """
     Args:
-        data: vs data in Dataframe format, with 'position','depth','vs' columns.
-        nlags: Number of averaging bins for the semivariogram, default value is 6.
-        weight: The weighting scheme for the semivariogram, default is True.
-        anisotropy_scaling: The scaling of the anisotropy, default is 1.0.
-        anisotropy_angle: The angle of the anisotropy, default is 0.
-        min_color: The minimum color limit of the figure, default is 0.
-        max_color: The maximum color limit of the figure, default is 1.
+        data: vs data in Dataframe format, with 'position','depth','vs' columns
+        nlags: Number of average bins for the semivariogram, default value is 6
+        weight: The weigh scheme for the semivariogram, default is True
+        anisotropy_scaling: The scale of the anisotropy, default value is 1.0
+        anisotropy_angle: The angle of the anisotropy, default value is 0.0
+        min_color: The minimum color limit of the colormap, default value is 0.0
+        max_color: The maximum color limit of the colormap, default value is 1.0
+        file_path: The path for storing the figure
 
     Returns:
         None
 
     """
-
     # load the vs data, check if the x distance(position) is too large
     is_interpolation = False
     data_check = data[['position', 'depth', 'vs']].dropna(subset=['vs'])
@@ -60,7 +60,6 @@ def pykrige_editest(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotro
             x_insert = x_insert.append(x_temp)
         data_insert = pd.concat([data_check, x_insert], axis=0, ignore_index=True)
         data_plot = data_insert
-        print('-----------------Data check Information:-----------------')
         print('The max distance between two points is: %d' % max(x_distance))
         print('Interpolation has been performed, %d points were added.' % len(x_distance_value))
     else:
@@ -69,12 +68,10 @@ def pykrige_editest(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotro
     x = data_plot['position'].to_numpy()
     y = data_plot['depth'].to_numpy()
     vs = data_plot['vs'].to_numpy()
-    time_start = time.time()
     # build the grid, with space 0.1m
     gridx = np.arange(x.min(), x.max(), 0.1)
     gridy = np.arange(y.min(), y.max(), 0.1)
     # Ordinary Kriging
-    print('------------------Interpolation method:------------------')
     print("The current method is: Ordinary Kriging.")
     OK = OrdinaryKriging(x, y, vs, variogram_model="spherical", nlags=nlags, weight=weight,
                          anisotropy_scaling=float(anisotropy_scaling), anisotropy_angle=float(anisotropy_angle),
@@ -83,27 +80,17 @@ def pykrige_editest(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotro
     # plot the result of Kriging
     fig, axes = plt.subplots(1, 1, figsize=(len(gridx) / 10, len(gridy) / 10))  # define the fig size
     fig_font_size = int((len(gridx) / 10 + len(gridy) / 10) / 2) + 20
+    # manually define the color scale range
+    min_color_index = min_color
+    max_color_index = max_color
     # define my own colormap
-    minColor, maxColor = 100, 800
-    colorRange = maxColor - minColor
-    minColorIndex = min_color
-    maxColorIndex = max_color
-    if not minColorIndex:
-        minColorIndex = (vs.min() - minColor) / colorRange
-    else:
-        minColorIndex = float(minColorIndex)
-    if not maxColorIndex:
-        maxColorIndex = (vs.max() - minColor) / colorRange
-    else:
-        maxColorIndex = float(maxColorIndex)
     color_dict = ["blue", "cyan", "yellow", "red"]
     spectrum_cmap = colors.LinearSegmentedColormap.from_list('my_colormap', color_dict, N=512)
     spectrum_reference_big = cm.get_cmap(spectrum_cmap, 512)
     spectrum_cmap_ = ListedColormap(spectrum_reference_big(np.linspace(0.0, 1.0, 256)))
-    mycmap = ListedColormap(spectrum_reference_big(np.linspace(minColorIndex, maxColorIndex, 256)))
+    mycmap = ListedColormap(spectrum_reference_big(np.linspace(min_color_index, max_color_index, 256)))
     # imshow
     plt.imshow(vs_, cmap=mycmap, zorder=20)
-    # plt.axis('off')
     # set the x, y ticks information
     if 0 < x.max() - x.min() <= 50:
         if len(gridx) % 50 == 0:
@@ -144,10 +131,7 @@ def pykrige_editest(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotro
         line_kilo_num = line_number + str(int(kilo_meter[0])) + '/' + str(int(kilo_meter[1])) + '+'
     axes.set_xticks(x_ticks)
     axes.set_xticklabels(x_labels, fontsize=fig_font_size)
-    axes.tick_params(axis='x',
-                     which='major',
-                     pad=25,
-                     length=20, width=2)
+    axes.tick_params(axis='x', which='major', pad=25, length=20, width=2)
     axes.xaxis.set_ticks_position("bottom")
     axes.set_xlabel('里程区间' + '(' + line_kilo_num + ')', fontsize=fig_font_size, labelpad=20, fontweight="bold")
     y_ticks = [i for i in range(0, len(gridy) + 10, 50)]
@@ -155,13 +139,11 @@ def pykrige_editest(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotro
     y_labels.sort(reverse=True)
     axes.set_yticks(y_ticks)
     axes.set_yticklabels(y_labels, fontsize=fig_font_size)
-    axes.tick_params(axis='y',
-                     direction='in',
-                     length=20, width=2)
+    axes.tick_params(axis='y', direction='in', length=20, width=2)
     axes.set_ylabel('深度(米)', fontsize=fig_font_size, fontweight="bold")
-    # set the colorbar
+    # set the colorbar using my own colormap spectrum_cmap_
     norm = mpl.colors.Normalize(vmin=200, vmax=800)
-    cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=spectrum_cmap_),  # colorbar: spectrum_cmap_
+    cb = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=spectrum_cmap_),
                       ax=axes, shrink=0.7, pad=0.005, aspect=20)
     cb.outline.set_visible(False)
     cb.set_label('横波速度(米/秒)', fontsize=fig_font_size, fontweight="bold")
@@ -211,13 +193,8 @@ def pykrige_editest(data, nlags=6, weight=True, anisotropy_scaling=1.0, anisotro
     axes.spines['top'].set_visible(False)
     axes.spines['right'].set_visible(False)
     axes.spines['bottom'].set_visible(False)
-    axes.spines['left'].set_visible(False)  # remove the figure border
+    axes.spines['left'].set_visible(False)
     plt.show()
-    # fig_save_name = os.path.split(file_path)[0] + '/' + os.path.split(file_path)[1].split('.')[0] + '.png'
-    # fig.savefig(fig_save_name, format='png', bbox_inches='tight', dpi=96, transparent=True)
-    print('-------------------Image saving path:--------------------')
-    # print('The figure is saved as %s.' % fig_save_name)
-    time_end = time.time()
-    print("The time consumed is %.2f seconds." % (time_end - time_start))
-    print('-------------------------End!---------------------------')
-    print('\n')
+    fig_save_name = file_path + '/' + os.path.split(file_path)[1].split('.')[0] + '.png'
+    fig.savefig(fig_save_name, format='png', bbox_inches='tight', dpi=96, transparent=True)
+    print('Done!\n')

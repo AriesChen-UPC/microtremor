@@ -7,7 +7,6 @@
 """
 
 import os
-import time
 import tkinter
 from glob import glob
 from tkinter import filedialog
@@ -18,7 +17,7 @@ from matplotlib.colors import ListedColormap
 from pykrige.ok import OrdinaryKriging
 import matplotlib.pyplot as plt
 from matplotlib import cm, colors
-from pykrige_editest import pykrige_editest
+from vs_plot import pykrige_editest
 
 
 def read_model(model, position):
@@ -44,8 +43,7 @@ def read_model(model, position):
 
     model_data = pd.DataFrame(layer).dropna(axis=0)  # model format in Geopsy
     model_data.columns = ['thickness', 'vp', 'vs', 'density']
-    # model_data.loc[0] = [0, 350, 150, 2000]  # set the first layer
-    model_data.loc[0] = model_data.loc[1]
+    model_data.loc[0] = [0, 350, 150, 2000]  # TODO: set the first layer
     model_data.sort_index(inplace=True)
     model_data.drop([len(model_data)-1], inplace=True)
     model_data['depth'] = model_data['thickness'].cumsum()
@@ -63,18 +61,18 @@ print('\033[0;34mThe number of the model is: %d.\033[0m' % len(model_file))
 # read the model from inversion
 data = pd.DataFrame(columns=['thickness', 'vp', 'vs', 'density', 'depth', 'position'])
 for model in model_file:
+    # TODO: the position information
     model_data = read_model(model, float(os.path.basename(model).split('.')[0]))
     data = data.append(model_data, ignore_index=True)
+data['depth'] = data['depth'] * (-1)
+
+#%% Kriging
 
 x = data['position'].to_numpy()
 y = data['depth'].to_numpy()
 vs = data['vs'].to_numpy()
 sns.histplot(data=data, x="vs", kde=True)
 plt.show()
-
-#%% Kriging
-
-time_start = time.time()
 # build the target grid
 gridx = np.arange(x.min(), x.max(), 0.1)
 gridy = np.arange(y.min(), y.max(), 0.1)
@@ -102,4 +100,5 @@ fig_save_name = file_path + '/' + os.path.split(file_path)[1].split('.')[0] + '.
 fig.savefig(fig_save_name, format='png', bbox_inches='tight', dpi=96, transparent=True)
 
 #%% pykrige_editest function
+
 pykrige_editest(data)
