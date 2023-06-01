@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33d34ee6-d3cc-4809-97de-6fddaff7792e" name="Changes" comment="readMe update" />
+    <list default="true" id="33d34ee6-d3cc-4809-97de-6fddaff7792e" name="Changes" comment="remi" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +37,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="readMe" />
     <MESSAGE value="readMe update" />
-    <option name="LAST_COMMIT_MESSAGE" value="readMe update" />
+    <MESSAGE value="remi" />
+    <option name="LAST_COMMIT_MESSAGE" value="remi" />
   </component>
 </project>
