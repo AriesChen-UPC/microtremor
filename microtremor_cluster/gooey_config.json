@@ -1,0 +1,181 @@
+{
+  "language": "english",
+  "target": "\"E:\\anaconda3\\python.exe\" -u \"D:\\MyProject\\Python\\PycharmProjects\\DataProcessing\\Microtremor\\TestProgramSet\\Seismic\\sac_segy_gooey.py\"",
+  "suppress_gooey_flag": false,
+  "program_name": "Format Converter",
+  "program_description": "Format Converter for SAC and SEGY",
+  "sidebar_title": "Actions",
+  "default_size": [
+    400,
+    500
+  ],
+  "auto_start": false,
+  "show_advanced": true,
+  "run_validators": true,
+  "encoding": "utf-8",
+  "show_stop_warning": true,
+  "show_success_modal": true,
+  "show_failure_modal": true,
+  "force_stop_is_error": true,
+  "poll_external_updates": false,
+  "return_to_config": false,
+  "show_restart_button": true,
+  "requires_shell": true,
+  "menu": [],
+  "clear_before_run": false,
+  "fullscreen": false,
+  "use_legacy_titles": true,
+  "num_required_cols": 1,
+  "num_optional_cols": 2,
+  "manual_start": false,
+  "monospace_display": false,
+  "image_dir": "::gooey/default",
+  "language_dir": "E:\\anaconda3\\lib\\site-packages\\gooey\\languages",
+  "progress_regex": null,
+  "progress_expr": null,
+  "hide_progress_msg": false,
+  "timing_options": {
+    "show_time_remaining": false,
+    "hide_time_remaining_on_complete": true
+  },
+  "disable_progress_bar_animation": false,
+  "disable_stop_button": false,
+  "navigation": "SIDEBAR",
+  "show_sidebar": false,
+  "tabbed_groups": false,
+  "group_by_type": true,
+  "body_bg_color": "#f0f0f0",
+  "header_bg_color": "#ffffff",
+  "header_height": 80,
+  "header_show_title": true,
+  "header_show_subtitle": true,
+  "header_image_center": false,
+  "footer_bg_color": "#f0f0f0",
+  "sidebar_bg_color": "#f2f2f2",
+  "terminal_panel_color": "#F0F0F0",
+  "terminal_font_color": "#000000",
+  "terminal_font_family": null,
+  "terminal_font_weight": 400,
+  "terminal_font_size": null,
+  "richtext_controls": false,
+  "error_color": "#ea7878",
+  "layout": "standard",
+  "widgets": {
+    "sac_segy_gooey.py": {
+      "command": "::gooey/default",
+      "name": "sac_segy_gooey.py",
+      "help": null,
+      "description": "",
+      "contents": [
+        {
+          "name": "required_args_msg",
+          "items": [
+            {
+              "id": "Path",
+              "type": "DirChooser",
+              "cli_type": "positional",
+              "required": true,
+              "data": {
+                "display_name": "Path",
+                "help": "Please select the SAC data folder path",
+                "required": true,
+                "nargs": "",
+                "commands": [],
+                "choices": [],
+                "default": null,
+                "dest": "Path"
+              },
+              "options": {
+                "error_color": "#ea7878",
+                "label_color": "#000000",
+                "help_color": "#363636",
+                "full_width": false,
+                "validator": {
+                  "type": "ExpressionValidator",
+                  "test": "user_input and not user_input.isspace()",
+                  "message": "This field is required"
+                },
+                "external_validator": {
+                  "cmd": ""
+                }
+              }
+            },
+            {
+              "id": "Start_Time",
+              "type": "TextField",
+              "cli_type": "positional",
+              "required": true,
+              "data": {
+                "display_name": "Start_Time",
+                "help": "Please input the start time",
+                "required": true,
+                "nargs": "",
+                "commands": [],
+                "choices": [],
+                "default": "2022-11-29T08:00:00",
+                "dest": "Start_Time"
+              },
+              "options": {
+                "error_color": "#ea7878",
+                "label_color": "#000000",
+                "help_color": "#363636",
+                "full_width": false,
+                "validator": {
+                  "type": "ExpressionValidator",
+                  "test": "user_input and not user_input.isspace()",
+                  "message": "This field is required"
+                },
+                "external_validator": {
+                  "cmd": ""
+                }
+              }
+            },
+            {
+              "id": "End_Time",
+              "type": "TextField",
+              "cli_type": "positional",
+              "required": true,
+              "data": {
+                "display_name": "End_Time",
+                "help": "Please input the end time",
+                "required": true,
+                "nargs": "",
+                "commands": [],
+                "choices": [],
+                "default": "2022-11-29T08:01:00",
+                "dest": "End_Time"
+              },
+              "options": {
+                "error_color": "#ea7878",
+                "label_color": "#000000",
+                "help_color": "#363636",
+                "full_width": false,
+                "validator": {
+                  "type": "ExpressionValidator",
+                  "test": "user_input and not user_input.isspace()",
+                  "message": "This field is required"
+                },
+                "external_validator": {
+                  "cmd": ""
+                }
+              }
+            }
+          ],
+          "groups": [],
+          "description": null,
+          "options": {
+            "label_color": "#000000",
+            "description_color": "#363636",
+            "legacy": {
+              "required_cols": 1,
+              "optional_cols": 2
+            },
+            "columns": 1,
+            "padding": 10,
+            "show_border": false
+          }
+        }
+      ]
+    }
+  }
+}
