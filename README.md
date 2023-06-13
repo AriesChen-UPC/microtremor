@@ -10,6 +10,7 @@ This repository is about some statistics and visualization tool about microtremo
 ### classify
 
 1. Use Pytorch to classify the microtremor data(spac, hvsr).
+2. A bidirectional LSTM (BiLSTM) layer is an RNN layer that learns bidirectional long-term dependencies between time steps of time series or sequence data.
 
 ### remi
 
