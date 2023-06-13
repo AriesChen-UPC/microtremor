@@ -14,7 +14,7 @@ This repository is about some statistics and visualization tool about microtremo
 
 ### remi
 
-1. Refraction Microtremor (ReMi).(John N. Louie; Faster, Better: Shear-Wave Velocity to 100 Meters Depth from Refraction Microtremor Arrays. Bulletin of the Seismological Society of America 2001;; 91 (2): 347–364. doi: https://doi.org/10.1785/0120000098)
+1. Refraction Microtremor (ReMi). (John N. Louie; Faster, Better: Shear-Wave Velocity to 100 Meters Depth from Refraction Microtremor Arrays. Bulletin of the Seismological Society of America 2001;; 91 (2): 347–364. doi: https://doi.org/10.1785/0120000098)
 
 ### plot
 
