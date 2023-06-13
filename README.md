@@ -10,3 +10,7 @@ This repository is about some statistics and visualization tool about microtremo
 ### classify
 
 1. Use Pytorch to classify the microtremor data(spac, hvsr).
+
+### remi
+
+1. Refraction Microtremor (ReMi).
