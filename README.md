@@ -14,3 +14,7 @@ This repository is about some statistics and visualization tool about microtremo
 ### remi
 
 1. Refraction Microtremor (ReMi).
+
+### plot
+
+1. Some plot result.
