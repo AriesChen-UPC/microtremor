@@ -4,8 +4,8 @@ This repository is about some statistics and visualization tool about microtremo
 
 ### cluster
 
-1. Use scikit-laern to cluster the microtremor data(spac, hvsr).
-2. Use spac data to calculate the vs30.
+1. Use scikit-learn to cluster the microtremor data(spac, hvsr and etc.).
+2. Use spac data to calculate the vs30. (Takumi Hayashida and others, Direct estimation of VS30 using spatial autocorrelation and centreless circular array coefficient curves obtained from microtremor array data, Geophysical Journal International, Volume 233, Issue 2, May 2023, Pages 1515–1528, https://doi.org/10.1093/gji/ggad006)
 
 ### classify
 
